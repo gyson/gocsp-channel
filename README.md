@@ -73,6 +73,8 @@ var ref = chan.put('value', function (ok) {
 ---
 ### `channel.each( fn )`
 
+Alias: `channel.forEach`
+
 Example:
 ```js
 channel.each(console.log)
@@ -80,7 +82,6 @@ channel.put(10) // print 10
 channel.put(20) // print 20
 channel.put(30) // print 30
 ```
-Alias: `channel.forEach`
 ---
 ### `channel.close()`
 
