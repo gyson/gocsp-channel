@@ -26,8 +26,6 @@ ch_1.put(20)
 
 Example:
 ```js
-var Channel = require('gocsp-channel')
-
 var chan = new Channel()
 ```
 ---
@@ -35,31 +33,42 @@ var chan = new Channel()
 
 Example:
 ```js
-var chan = new (require('gocsp-channel'))()
-
-chan.take()
+var chan = new Channel()
+co(function* () {
+    console.log(yield chan.take()) // print 'hi'
+})
+chan.put('hi')
 ```
 ---
 ### `channel.take( callback )`
 
 Example:
 ```js
-
-
+var chan = new Channel()
+// ref could be used to cancel this operation
+var ref = chan.take(function (val) {
+    // ...
+})
 ```
 ---
 ### `channel.put( value )`
 
 Example:
 ```js
-
+var chan = new Channel()
+co(function* () {
+    yield chan.put('okk')
+})
 ```
 ---
 ### `channel.put( value, callback )`
 
 Example:
 ```js
-
+// ref could be used to cancel this operation
+var ref = chan.put('value', function (ok) {
+    // ,,,
+})
 ```
 ---
 ### `channel.each( fn )`
@@ -85,5 +94,9 @@ channel.close(new Error()) // close with error
 
 Example:
 ```js
-
+var err = new Error()
+chan.close(err)
+chan.done(function (e) {
+    assert(e === err)
+})
 ```
